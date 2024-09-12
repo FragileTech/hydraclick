@@ -12,7 +12,7 @@ env:
   PROJECT_NAME: hydraclick
   PROJECT_DIR: src/hydraclick
   VERSION_FILE: src/hydraclick/version.py
-  DEFAULT_BRANCH: master
+  DEFAULT_BRANCH: main
   BOT_NAME: fragile-bot
   BOT_EMAIL: bot@fragile.tech
   DOCKER_ORG: fragiletech
@@ -203,7 +203,7 @@ jobs:
     name: Bump package version
     env:
       BOT_AUTH_TOKEN: ${{ secrets.BOT_AUTH_TOKEN }}
-    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$BOT_AUTH_TOKEN' != ''"
+    if: "!contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/main' && '$BOT_AUTH_TOKEN' != ''"
     runs-on: ubuntu-latest
     needs:
       - pytest
@@ -236,7 +236,7 @@ jobs:
     name: Release PyPI package
     env:
       PYPI_PASS: ${{ secrets.PYPI_PASS }}
-    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/master' && '$PYPI_PASS' != ''"
+    if: "contains(github.event.head_commit.message, 'Bump version') && github.ref == 'refs/heads/main' && '$PYPI_PASS' != ''"
     runs-on: ubuntu-latest
     steps:
       - name: actions/checkout
