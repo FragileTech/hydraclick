@@ -27,13 +27,13 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 dependencies = [
-    "click",
+    "click>=8.1.7",
     "flogging",
     "frozendict",
     "hydra-core",
     "python-dotenv",
     "setuptools",
-    "terminaltexteffects",
+    "terminaltexteffects>=0.11.0",
 ]
 [project.optional-dependencies]
 test = [
@@ -46,6 +46,9 @@ test = [
     "tomli>=1.2.3",
     "hypothesis>=6.24.6"
 ]
+
+[project.scripts]
+hydraclick = "hydraclick.__main__:cli"
 
 [build-system]
 requires = ["hatchling"]
@@ -78,11 +81,11 @@ dev-dependencies = [
 path = "src/hydraclick/version.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/nlptools"]
+packages = ["src/hydraclick"]
 
 [tool.rye.scripts]
-style = { chain = ["ruff check --fix-only  --unsafe-fixes tests src", "ruff format tests src"] }
-check = { chain = ["ruff check --diff tests src", "ruff format --diff tests src"]}  #,"mypy src tests" ] }
+style = { chain = ["ruff check --fix-only --unsafe-fixes tests src", "ruff format tests src"] }
+check = { chain = ["ruff check tests src", "ruff format --diff tests src"]}  #,"mypy src tests" ] }
 # test = { chain = ["test:parallel", "test:doctest"] }
 test = { chain = ["test:parallel"] }
 codecov = { chain = ["codecov:parallel"] }
@@ -96,6 +99,7 @@ serve-docs = { cmd = "python3 -m http.server --directory docs/build" }
 [tool.ruff]
 # Assume Python 3.10
 target-version = "py310"
+
 preview = true
 include = ["*.py", "*.pyi", "**/pyproject.toml"]
 # Exclude a variety of commonly ignored directories.
@@ -153,6 +157,17 @@ ignore = [
 fixable = ["ALL"]
 # unfixable = ["I"]
 
+[tool.ruff.lint.flake8-import-conventions.aliases]
+# Declare the default aliases.
+altair = "alt"
+"matplotlib.pyplot" = "plt"
+numpy = "np"
+pandas = "pd"
+seaborn = "sns"
+scipy = "sp"
+holoviews = "hv"
+panel = "pn"
+
 [tool.ruff.lint.flake8-quotes]
 docstring-quotes = "double"
 
@@ -172,6 +187,24 @@ indent-style = "space"
 line-ending = "auto"
 preview = true
 quote-style = "double"
+
+[tool.isort]
+profile = "black"
+line_length = 99
+multi_line_output = 3
+order_by_type = false
+force_alphabetical_sort_within_sections = true
+force_sort_within_sections = true
+combine_as_imports = true
+include_trailing_comma = true
+color_output = true
+lines_after_imports = 2
+honor_noqa = true
+skip = [".venv", "venv"]
+skip_glob = ["*.pyx"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src", "hydraclick"]
 
 [tool.mypy]
 exclude = ["experimental.*", "deprecated.*"]
