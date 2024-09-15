@@ -1,4 +1,5 @@
 import sys
+import logging
 
 import click
 import flogging
@@ -14,8 +15,9 @@ def cli():
 
 @cli.command(short_help="test_stuff.")
 @hydra_command()
-def nothing(args, **kwargs):  # noqa: ARG001
+def nothing(args, **kwargs):
     """Test function that does nothing."""
+    logging.warning("Doing nothing", args, kwargs)
 
 
 if __name__ == "__main__":
