@@ -77,7 +77,7 @@ multirun_option = click.option(
 config_path_option = click.option(
     "--config-path",
     "-cp",
-    "config_path",
+    "config_path_",
     help=(
         "Overrides the config_path specified in hydra.main(). "
         "The config_path is absolute or relative to the Python file declaring @hydra.main()."
@@ -96,7 +96,7 @@ config_path_option = click.option(
 config_name_option = click.option(
     "--config-name",
     "-cn",
-    "config_name",
+    "config_name_",
     help="Overrides the config_name specified in hydra.main()",
     default=None,
     type=click.STRING,
@@ -126,8 +126,7 @@ shell_completion_option = click.option(
     "-sc",
     "shell_completion",
     help="Install or Uninstall shell tab completion",
-    is_flag=True,
-    default=False,
+    default=None,
 )
 # Unused stuff
 parallel_option = click.option(

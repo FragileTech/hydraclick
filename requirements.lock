@@ -33,7 +33,7 @@ frozendict==2.4.4
     # via hydraclick
 hydra-core==1.3.2
     # via hydraclick
-hypothesis==6.112.0
+hypothesis==6.112.1
     # via hydraclick
 iniconfig==2.0.0
     # via pytest
