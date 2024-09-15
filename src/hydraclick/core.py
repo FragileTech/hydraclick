@@ -105,7 +105,7 @@ def build_hydra_args(
     if config_dir:
         hydra_args_.extend(("--config-dir", f"{config_dir}"))
     if shell_completion:
-        hydra_args_.append("--shell-completion")
+        hydra_args_.extend(("--shell-completion", f"{shell_completion}"))
     _logger.debug(f"Hydra args after composition: {hydra_args}")
     return (*hydra_args_, *hydra_args)
 
@@ -268,8 +268,8 @@ def command_api(
         info: bool,
         run: bool,
         multirun: bool,
-        config_path: str,
-        config_name: str,
+        config_path_: str,
+        config_name_: str,
         config_dir: str,
         shell_completion: bool,
         hydra_args: tuple[str, ...] | None = None,
@@ -298,8 +298,8 @@ def command_api(
             info,
             run,
             multirun,
-            config_path,
-            config_name,
+            config_path_,
+            config_name_,
             config_dir,
             shell_completion,
             hydra_args,
