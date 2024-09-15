@@ -17,7 +17,7 @@ def cli():
 @hydra_command()
 def nothing(args, **kwargs):
     """Test function that does nothing."""
-    logging.warning("Doing nothing", args, kwargs)
+    logging.warning(f"Doing nothing {args, kwargs}")
 
 
 if __name__ == "__main__":
