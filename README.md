@@ -66,16 +66,20 @@ if __name__ == "__main__":
 Decorator to create CLI commands.
 
 ```python
+import omegaconf
+
+
 def hydra_command(
-    config_path: str | Path | None = None,
-    config_name: str | None = "config",
-    version_base: str | None = None,
-    as_kwargs: bool = False,
-    preprocess_config: Callable[[DictConfig], DictConfig] | None = None,
-    print_config: bool = True,
-    resolve: bool = True,
-    use_flogging: bool = True,
-    **flogging_kwargs: Any,
+        config_path: str | Path | None = None,
+        config_name: str | None = "config",
+        version_base: str | None = None,
+        as_kwargs: bool = False,
+        preprocess_config: Callable[[DictConfig], DictConfig] | None = None,
+        print_config: bool = True,
+        resolve: bool = True,
+        use_flogging: bool = True,
+        terminal_effect: Callable | None = omegaconf.MISSING,
+        **flogging_kwargs: Any,
 ) -> Callable:
 ```
 
@@ -95,6 +99,7 @@ Defaults to `False`.
 - `resolve`: Whether to resolve the configuration.
 - `use_flogging`: Whether to use flogging for structured logging.
 - `**flogging_kwargs`: Additional keyword arguments for flogging.
+- `terminal_effect`: The terminal effect function to use when rendering the command help.
 
 ## Logging with Flogging
 

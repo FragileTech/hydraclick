@@ -5,10 +5,11 @@ from pathlib import Path
 from typing import Callable, Any
 
 import hydra
+import omegaconf
 from omegaconf import DictConfig, OmegaConf
 from unittest.mock import patch
 
-
+from hydraclick import set_terminal_effect
 from hydraclick.display_config import display_config
 from hydraclick.options import (
     hydra_args_argument,
@@ -25,6 +26,7 @@ from hydraclick.options import (
     config_name_option,
     shell_completion_option,
 )
+from hydraclick.terminal_effects import display_terminal_effect
 
 _logger = logging.getLogger(__name__)
 
@@ -171,6 +173,7 @@ def command_api(
     print_config: bool = True,
     resolve: bool = True,
     use_flogging: bool = True,
+    terminal_effect: Callable | None = omegaconf.MISSING,
     **flogging_kwargs: Any,
 ) -> Callable:
     """Integrate Hydra's configuration management capabilities with a Click-based CLI.
@@ -197,6 +200,8 @@ def command_api(
             function. Defaults to `True`.
         use_flogging (bool, optional): Whether to use the `flogging` library for structured \
             logging. Defaults to `True`.
+        terminal_effect(Callable | None, optional): The terminal effect function to use when \
+            rendering the command help.
         **flogging_kwargs (Any, optional): Additional keyword arguments to pass to the \
             `flogging.setup` function.
 
@@ -237,6 +242,10 @@ def command_api(
             configuration before it is passed to the main function.
 
     """
+    if terminal_effect == omegaconf.MISSING:
+        terminal_effect = display_terminal_effect
+    if terminal_effect is not None:
+        set_terminal_effect(terminal_effect)
     config_path = get_default_dir() if config_path is None else str(config_path)
     if config_name is not None:
         config_name = str(config_name).replace(".yaml", "").replace(".yml", "")
@@ -329,6 +338,7 @@ def hydra_command(
     print_config: bool = True,
     resolve: bool = True,
     use_flogging: bool = True,
+    terminal_effect: Callable | None = omegaconf.MISSING,
     **flogging_kwargs: Any,
 ) -> Callable:
     """Integrate Hydra's configuration management capabilities with a Click-based CLI.
@@ -353,6 +363,8 @@ def hydra_command(
             the function. Defaults to `True`.
         use_flogging (bool, optional): Whether to use the `flogging` library for structured \
             logging. Defaults to `True`.
+        terminal_effect(Callable | None, optional): The terminal effect function to use when \
+            rendering the command help.
         **flogging_kwargs (Any, optional): Additional keyword arguments to pass to the \
             `flogging.setup` function.
 
@@ -380,6 +392,7 @@ def hydra_command(
             print_config=print_config,
             preprocess_config=preprocess_config,
             resolve=resolve,
+            terminal_effect=terminal_effect,
             **flogging_kwargs,
         )
 
