@@ -50,7 +50,7 @@ import sys
 from omegaconf import DictConfig
 from hydraclick import hydra_command
 
-@hydra_command(config_path="configs", config_name="app_config", run_mode="kwargs")
+@hydra_command(config_path="configs", config_name="app_config", as_kwargs=True)
 def main(**kwargs):
     print(f"Running with config: {kwargs}")
 
@@ -70,7 +70,7 @@ def hydra_command(
     config_path: str | Path | None = None,
     config_name: str | None = "config",
     version_base: str | None = None,
-    run_mode: str = "config",
+    as_kwargs: bool = False,
     preprocess_config: Callable[[DictConfig], DictConfig] | None = None,
     print_config: bool = True,
     resolve: bool = True,
