@@ -38,7 +38,7 @@ except ImportError:
 
 def wrap_kwargs_and_config(
     function: Callable,
-    run_mode: str = "config",  # "config" | "kwargs"
+    as_kwargs: bool = False,
     print_config: bool = True,
     preprocess_config: Callable[[DictConfig], DictConfig] | None = None,
     resolve: bool = True,
@@ -57,9 +57,10 @@ def wrap_kwargs_and_config(
                 raise e
         if print_config:
             display_config(config, logger=_logger)
-        if run_mode == "config":
+        if not as_kwargs:
             return function(config)
-        return function(**config)
+        conf_dict = OmegaConf.to_container(config, resolve=resolve)
+        return function(**conf_dict)
 
     return wrapper
 
@@ -165,7 +166,7 @@ def command_api(
     config_path: str | Path | None = None,
     config_name: str | None = "config",
     version_base: str | None = None,
-    run_mode: str = "config",
+    as_kwargs: bool = False,
     preprocess_config: Callable[[DictConfig], DictConfig] | None = None,
     print_config: bool = True,
     resolve: bool = True,
@@ -183,8 +184,10 @@ def command_api(
             (without the `.yaml` or `.yml` extension). Defaults to `"config"`.
         version_base (str | None, optional): The base version of the configuration. \
             Defaults to `None`.
-        run_mode (str, optional): The mode in which to run the function. Can be `"config"` \
-            or `"kwargs"`. Defaults to `"config"`.
+        as_kwargs (bool, optional): The mode in which to run the function. \
+            If `True`, the function is run with the configuration as keyword arguments. In \
+            this case the configuration is converted to a dictionary before passing it to the \
+            function. Defaults to `False`.
         preprocess_config (Callable[[DictConfig], DictConfig] | None, optional): A function \
             to preprocess the configuration before passing it to the main function. \
             Defaults to `None`.
@@ -276,7 +279,7 @@ def command_api(
     ):
         nonlocal \
             print_config, \
-            run_mode, \
+            as_kwargs, \
             preprocess_config, \
             resolve, \
             config_path, \
@@ -287,7 +290,7 @@ def command_api(
         if show_config:
             print_config = False
         true_func = wrap_kwargs_and_config(
-            function, run_mode, print_config, preprocess_config, resolve
+            function, as_kwargs, print_config, preprocess_config, resolve
         )
         hydra_args = build_hydra_args(
             hydra_help,
@@ -321,7 +324,7 @@ def hydra_command(
     config_path: str | Path | None = None,
     config_name: str | None = "config",
     version_base: str | None = None,
-    run_mode: str = "config",
+    as_kwargs: bool = False,
     preprocess_config: Callable[[DictConfig], DictConfig] | None = None,
     print_config: bool = True,
     resolve: bool = True,
@@ -337,8 +340,10 @@ def hydra_command(
             (without the `.yaml` or `.yml` extension). Defaults to `"config"`.
         version_base (str | None, optional): The base version of the configuration. \
             Defaults to `None`.
-        run_mode (str, optional): The mode in which to run the function. Can be `"config"` \
-            or `"kwargs"`. Defaults to `"config"`.
+        as_kwargs (bool, optional): The mode in which to run the function. \
+            If `True`, the function is run with the configuration as keyword arguments. In \
+            this case the configuration is converted to a dictionary before passing it to the \
+            function. Defaults to `False`.
         preprocess_config (Callable[[DictConfig], DictConfig] | None, optional): A function to \
             preprocess the configuration before passing it to the main function. \
             Defaults to `None`.
@@ -371,7 +376,7 @@ def hydra_command(
             config_name=config_name,
             version_base=version_base,
             use_flogging=use_flogging,
-            run_mode=run_mode,
+            as_kwargs=as_kwargs,
             print_config=print_config,
             preprocess_config=preprocess_config,
             resolve=resolve,

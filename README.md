@@ -86,9 +86,10 @@ Hydraclick provides several configuration options to customize your CLI:
 - `config_path`: Path to the configuration directory. Passed to [`hydra.main()`](https://hydra.cc/docs/tutorials/basic/your_first_app/config_file/)
 - `config_name`: Name of the configuration file. Passed to [`hydra.main()`](https://hydra.cc/docs/tutorials/basic/your_first_app/config_file/)
 - `version_base`: Base version of the configuration. Passed to [`hydra.main()`](https://hydra.cc/docs/tutorials/basic/your_first_app/config_file/)
-- `run_mode`: Mode to run the function (`"config"` or `"kwargs"`).
-    - `"config"`: Pass the configuration as a single `OmegaConf.DictCondig` object.
-    - `"kwargs"`: Resolve the `OmegaConf.DictConfig` objet into a python `dict` and pass it as keyword arguments.
+- `as_kwargs`: The mode in which to run the function. If `True`, the function is run with the 
+configuration as keyword arguments. In this case the configuration is converted to a dictionary 
+before passing it to the function. If `False`, pass the configuration as a single `OmegaConf.DictConfig` object. 
+Defaults to `False`.
 - `preprocess_config`: Function to preprocess the configuration. It takes a `DictConfig` object and returns a `DictConfig` object.
 - `print_config`: Whether to print the configuration before execution.
 - `resolve`: Whether to resolve the configuration.
