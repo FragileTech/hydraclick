@@ -33,7 +33,7 @@ dependencies = [
 [project.optional-dependencies]
 flogging = ["flogging>=0.0.22"]
 terminal-effects = ["terminaltexteffects>=0.11.0"]
-all = ["flogging", "terminal-effects"]
+all = ["flogging>=0.0.22", "terminaltexteffects>=0.11.0"]
 test = [
     "psutil>=5.8.0",
     "pytest>=6.2.5",
