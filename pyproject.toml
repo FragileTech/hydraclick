@@ -28,14 +28,12 @@ classifiers = [
 ]
 dependencies = [
     "click>=8.1.7",
-    "flogging",
-    "frozendict",
     "hydra-core",
-    "python-dotenv",
-    "setuptools",
-    "terminaltexteffects>=0.11.0",
 ]
 [project.optional-dependencies]
+flogging = ["flogging>=0.0.22"]
+terminal-effects = ["terminaltexteffects>=0.11.0"]
+all = ["flogging>=0.0.22", "terminaltexteffects>=0.11.0"]
 test = [
     "psutil>=5.8.0",
     "pytest>=6.2.5",
