@@ -29,6 +29,7 @@ attrs==24.2.0
     # via jsonschema
     # via jupyter-cache
     # via referencing
+autoapi==2.0.1
 babel==2.16.0
     # via pydata-sphinx-theme
     # via sphinx
@@ -76,8 +77,6 @@ executing==2.1.0
 fastjsonschema==2.20.0
     # via nbformat
 flogging==0.0.22
-    # via hydraclick
-frozendict==2.4.4
     # via hydraclick
 greenlet==3.1.0 ; (python_full_version < '3.13' and platform_machine == 'AMD64') or (python_full_version < '3.13' and platform_machine == 'WIN32') or (python_full_version < '3.13' and platform_machine == 'aarch64') or (python_full_version < '3.13' and platform_machine == 'amd64') or (python_full_version < '3.13' and platform_machine == 'ppc64le') or (python_full_version < '3.13' and platform_machine == 'win32') or (python_full_version < '3.13' and platform_machine == 'x86_64')
     # via sqlalchemy
@@ -199,8 +198,6 @@ pytest-xdist==3.6.1
     # via hydraclick
 python-dateutil==2.9.0.post0
     # via jupyter-client
-python-dotenv==1.0.1
-    # via hydraclick
 pyvirtualdisplay==3.0
     # via hydraclick
 pywin32==306 ; platform_python_implementation != 'PyPy' and sys_platform == 'win32'
@@ -226,7 +223,6 @@ rpds-py==0.20.0
 ruff==0.6.5
 ruyaml==0.91.0
 setuptools==74.1.2
-    # via hydraclick
     # via ruyaml
     # via sphinx-togglebutton
     # via sphinxcontrib-bibtex
@@ -241,6 +237,7 @@ sortedcontainers==2.4.0
 soupsieve==2.6
     # via beautifulsoup4
 sphinx==8.0.2
+    # via autoapi
     # via myst-nb
     # via myst-parser
     # via pydata-sphinx-theme

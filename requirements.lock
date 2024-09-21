@@ -29,8 +29,6 @@ execnet==2.1.1
     # via pytest-xdist
 flogging==0.0.22
     # via hydraclick
-frozendict==2.4.4
-    # via hydraclick
 hydra-core==1.3.2
     # via hydraclick
 hypothesis==6.112.1
@@ -58,14 +56,10 @@ pytest-rerunfailures==14.0
     # via hydraclick
 pytest-xdist==3.6.1
     # via hydraclick
-python-dotenv==1.0.1
-    # via hydraclick
 pyvirtualdisplay==3.0
     # via hydraclick
 pyyaml==6.0.2
     # via omegaconf
-setuptools==74.1.2
-    # via hydraclick
 sortedcontainers==2.4.0
     # via hypothesis
 terminaltexteffects==0.11.0
