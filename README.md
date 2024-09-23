@@ -18,6 +18,22 @@ Install Hydraclick via pip:
 pip install hydraclick
 ```
 
+### Supported Python Versions
+
+Hydraclick supports the following Python versions:
+
+- Python 3.9
+- Python 3.10
+- Python 3.11
+- Python 3.12
+
+### Supported Operating Systems
+
+Hydraclick is compatible with the following operating systems:
+
+- Ubuntu (latest)
+- macOS (latest)
+
 ## Getting Started
 
 ### Basic Usage
@@ -28,7 +44,7 @@ Define your function and decorate it with `@hydra_command` to create a CLI comma
 from omegaconf import DictConfig
 from hydraclick import hydra_command
 
-@hydra_command(config_path="config", config_name="my_config")
+@hydra_command(config_path="config_folder", config_name="file_without_extension")
 def my_function(config: DictConfig):
     print(f"Running with config: {config.pretty()}")
 ```
@@ -58,7 +74,6 @@ if __name__ == "__main__":
     main()
 ```
 
-
 ## API Reference
 
 ### `hydra_command`
@@ -67,7 +82,6 @@ Decorator to create CLI commands.
 
 ```python
 import omegaconf
-
 
 def hydra_command(
         config_path: str | Path | None = None,
@@ -90,10 +104,7 @@ Hydraclick provides several configuration options to customize your CLI:
 - `config_path`: Path to the configuration directory. Passed to [`hydra.main()`](https://hydra.cc/docs/tutorials/basic/your_first_app/config_file/)
 - `config_name`: Name of the configuration file. Passed to [`hydra.main()`](https://hydra.cc/docs/tutorials/basic/your_first_app/config_file/)
 - `version_base`: Base version of the configuration. Passed to [`hydra.main()`](https://hydra.cc/docs/tutorials/basic/your_first_app/config_file/)
-- `as_kwargs`: The mode in which to run the function. If `True`, the function is run with the 
-configuration as keyword arguments. In this case the configuration is converted to a dictionary 
-before passing it to the function. If `False`, pass the configuration as a single `OmegaConf.DictConfig` object. 
-Defaults to `False`.
+- `as_kwargs`: The mode in which to run the function. If `True`, the function is run with the configuration as keyword arguments. In this case, the configuration is converted to a dictionary before passing it to the function. If `False`, pass the configuration as a single `OmegaConf.DictConfig` object. Defaults to `False`.
 - `preprocess_config`: Function to preprocess the configuration. It takes a `DictConfig` object and returns a `DictConfig` object.
 - `print_config`: Whether to print the configuration before execution.
 - `resolve`: Whether to resolve the configuration.
@@ -116,10 +127,29 @@ pip install flogging
 
 If `flogging` is not available, Hydraclick will log a warning and disable structured logging.
 
+## Terminal Text Effects
+
+Hydraclick supports terminal text effects using the [Terminal Text Effects](https://chrisbuilds.github.io/terminaltexteffects/) library to enhance the user experience with animated and styled text outputs in the terminal.
+Install the library with:
+```bash
+pip install hydraclick[terminaltexteffects]
+```
+
+```bash
+pip install terminaltexteffects
+```
+
+## Installing all the extras
+
+To install all the extras, use the following command:
+
+```bash
+pip install hydraclick[all]
+```
+
 ## Shell Completion
 
-Hydraclick supports generating shell completion scripts. Use the `--shell-completion` option 
-to generate scripts for your preferred shell.
+Hydraclick supports generating shell completion scripts. Use the `--shell-completion` option to generate scripts for your preferred shell.
 
 ```bash
 cli_app command --shell-completion install=bash > my_script_completion.sh
@@ -150,5 +180,4 @@ If you encounter any issues or have questions, feel free to open an issue on the
 - [Hydra](https://hydra.cc/) for powerful configuration management.
 - [Click](https://click.palletsprojects.com/) for creating beautiful CLIs.
 - [Flogging](https://github.com/FragileTech/flogging) for structured logging.
-
-
+- [Terminal Text Effects](https://chrisbuilds.github.io/terminaltexteffects) for enhancing terminal help text output.
